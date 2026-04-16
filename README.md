@@ -8,6 +8,14 @@ A pixel-art space shooter built with Pygame. Pilot your ship through waves of as
 
 ---
 
+## Preview
+
+![Gameplay](screenshots/gameplay.png)
+
+![Boss Fight](screenshots/boss_fight.png)
+
+---
+
 ## Gameplay
 
 Navigate through increasingly difficult waves of space hazards. Collect power-ups from space stations, upgrade your weapons, and survive as long as you can.
