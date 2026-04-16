@@ -1,3 +1,25 @@
+# MIT License
+#
+# Copyright (c) 2026 Karina Bahrii
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 import pygame
 import random
 import math
@@ -578,6 +600,10 @@ def draw_hud(surface, ship, wave):
     power_text = font_sm.render(f"PWR: {'|' * ship.power_level}", True, CYAN)
     surface.blit(power_text, (10, 28))
 
+    # Author watermark
+    watermark = font_sm.render("by Karina Bahrii | github.com/StarryMartlet", True, (80, 80, 80))
+    surface.blit(watermark, (10, HEIGHT - 22))
+
 
 # --- Game states ---
 
@@ -865,7 +891,35 @@ def game_loop():
 
 # --- Entry point ---
 
+def splash_screen():
+    """Show a 2-second splash screen with title and author."""
+    stars = create_stars()
+    start_time = pygame.time.get_ticks()
+    while pygame.time.get_ticks() - start_time < 2000:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        update_stars(stars)
+        screen.fill(BLACK)
+        draw_stars(screen, stars)
+
+        title = font_lg.render("COSMIC BLASTER", True, CYAN)
+        screen.blit(title, (WIDTH // 2 - title.get_width() // 2, HEIGHT // 2 - 40))
+
+        author = font_md.render("by Karina Bahrii", True, PURPLE)
+        screen.blit(author, (WIDTH // 2 - author.get_width() // 2, HEIGHT // 2 + 20))
+
+        link = font_sm.render("github.com/StarryMartlet", True, GREY)
+        screen.blit(link, (WIDTH // 2 - link.get_width() // 2, HEIGHT // 2 + 55))
+
+        pygame.display.flip()
+        clock.tick(FPS)
+
+
 def main():
+    splash_screen()
     while True:
         title_screen()
         score = game_loop()
